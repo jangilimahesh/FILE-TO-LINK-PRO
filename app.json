@@ -63,11 +63,11 @@
     },
     "CHANNEL": {
       "description": "Public updates channel URL",
-      "value": "https://t.me/AV_BOTz_UPDATE"
+      "value": "https://t.me/ml4Gb"
     },
     "SUPPORT": {
       "description": "Support group URL",
-      "value": "https://t.me/AV_SUPPORT_GROUP"
+      "value": "https://t.me/ml4Gb"
     },
     "HOW_TO_VERIFY": {
       "description": "Link to verification guide"
@@ -112,7 +112,7 @@
       "value": "False"
     },
     "SHORTLINK_URL": {
-      "description": "Shortener domain (e.g. techvjlink.site)"
+      "description": "Shortener domain (e.g. #)"
     },
     "SHORTLINK_API": {
       "description": "API key for shortlink generator"
@@ -133,11 +133,11 @@
     },
     "AUTH_PICS": {
       "description": "Authentication instruction image",
-      "value": "https://envs.sh/AwV.jpg"
+      "value": "#"
     },
     "PICS": {
       "description": "Default bot image",
-      "value": "https://envs.sh/b6H.jpg"
+      "value": "#"
     },
     "FILE_CAPTION": {
       "description": "Caption template for single file"
@@ -174,7 +174,7 @@
     },
     "name": {
       "description": "Bot session name",
-      "value": "File-To-Link"
+      "value": "File-To-Link-Pro"
     },
     "PORT": {
       "description": "Port number for web server",
