@@ -1,11 +1,7 @@
 import os, sys, glob, pytz, asyncio, logging, importlib
 from pathlib import Path
 from pyrogram import idle
-
-#Dont Remove My Credit @AV_BOTz_UPDATE 
-#This Repo Is By @BOT_OWNER26 
-# For Any Kind Of Error Ask Us In Support Group @AV_SUPPORT_GROUP
-
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -23,10 +19,6 @@ from web import web_server, check_expired_premium
 from web.server import Webavbot
 from utils import temp, ping_server
 from web.server.clients import initialize_clients
-
-#Dont Remove My Credit @AV_BOTz_UPDATE 
-#This Repo Is By @BOT_OWNER26 
-# For Any Kind Of Error Ask Us In Support Group @AV_SUPPORT_GROUP
 
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
@@ -50,10 +42,6 @@ async def start():
             sys.modules["plugins." + plugin_name] = load
             print("Imported => " + plugin_name)
 
-#Dont Remove My Credit @AV_BOTz_UPDATE 
-#This Repo Is By @BOT_OWNER26 
-# For Any Kind Of Error Ask Us In Support Group @AV_SUPPORT_GROUP
-    
     if ON_HEROKU:
         asyncio.create_task(ping_server())
     me = await Webavbot.get_me()
@@ -74,10 +62,6 @@ async def start():
     bind_address = "0.0.0.0"
     await web.TCPSite(app, bind_address, PORT).start()
     await idle()
-
-#Dont Remove My Credit @AV_BOTz_UPDATE 
-#This Repo Is By @BOT_OWNER26 
-# For Any Kind Of Error Ask Us In Support Group @AV_SUPPORT_GROUP
 
 if __name__ == '__main__':
     try:
