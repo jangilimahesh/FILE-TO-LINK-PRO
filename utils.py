@@ -12,24 +12,24 @@ from info import *
 from shortzy import Shortzy
 
 # -------------------------- LOGGER INITIALIZATION -------------------------- #
-# Logger को initialize किया गया ताकि errors और info logs को track किया जा सके
+# Initializes the logger to track errors and informational logs.
 logger = logging.getLogger(__name__)
 
 # -------------------------- TEMPORARY DATA STORAGE -------------------------- #
-# यह क्लास बोट के रनटाइम में temporary इन-मैमोरी storage के रूप में काम करती है
+# This class works as an in-memory temporary storage during bot runtime.
 class temp:
     ME = None
     BOT = None
     U_NAME = None
     B_NAME = None
-    TOKENS = {}      # User tokens temporarily store करने के लिए
-    VERIFIED = {}    # Verified users की जानकारी cache करने के लिए
+    TOKENS = {}      # Temporarily stores user tokens
+    VERIFIED = {}    # Caches verified user information
 
 # -------------------------- PING SERVER -------------------------- #
-# Server को नियमित समय पर ping करता है ताकि वह active बना रहे
+# Regularly pings the server to keep it active.
 async def ping_server():
     while True:
-        await asyncio.sleep(PING_INTERVAL)  # हर interval पर रन होगा
+        await asyncio.sleep(PING_INTERVAL)  # Runs every interval
         try:
             async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=10)) as session:
                 async with session.get(URL) as resp:
@@ -41,7 +41,7 @@ async def ping_server():
             traceback.print_exc()
 
 # -------------------------- FILE SIZE CONVERTER -------------------------- #
-# Bytes में दिए गए साइज़ को human-readable format में convert करता है
+# Converts file size from bytes to a human-readable format.
 def get_size(size: int) -> str:
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
     size = float(size)
@@ -52,7 +52,7 @@ def get_size(size: int) -> str:
     return f"{size:.2f} {units[i]}"
 
 # -------------------------- READABLE TIME FORMATTER -------------------------- #
-# Seconds को readable time format (hh:mm:ss) में convert करता है
+# Converts seconds into a readable time format (hh:mm:ss).
 def get_readable_time(seconds: int) -> str:
     time_list = []
     time_suffix = ["s", "m", "h", " days"]
@@ -72,7 +72,7 @@ def get_readable_time(seconds: int) -> str:
     return ": ".join(time_list)
 
 # -------------------------- SHORT LINK GENERATOR (For Verification) -------------------------- #
-# Verification लिंक को short करता है ताकि यूज़र verify कर सके
+# Shortens the verification link so users can verify easily.
 async def get_verify_shorted_link(link):
     API = SHORTLINK_API
     URL = SHORTLINK_URL
@@ -100,7 +100,7 @@ async def get_verify_shorted_link(link):
     return f"{url}?token={API}&link={link}"
 
 # -------------------------- SHORT LINK GENERATOR (Normal) -------------------------- #
-# General लिंक को short करने वाला function
+# Shortens a general link.
 async def get_shortlink(link):
     API = SHORTLINK_API
     URL = SHORTLINK_URL
@@ -128,14 +128,14 @@ async def get_shortlink(link):
     return f"{url}?token={API}&link={link}"
 
 # -------------------------- TOKEN VALIDITY CHECK -------------------------- #
-# यह check करता है कि यूज़र का दिया गया token अभी valid है या नहीं
+# Checks whether a user's given token is still valid or not.
 async def check_token(bot, userid, token):
     user = await bot.get_users(userid)
     tokens = temp.TOKENS.get(user.id, {})
     return tokens.get(token) == False
 
 # -------------------------- TOKEN GENERATOR -------------------------- #
-# User को verify करने के लिए एक unique token generate करता है और short link देता है
+# Generates a unique verification token for the user and provides a short link.
 async def get_token(bot, userid, link):
     user = await bot.get_users(userid)
     token = ''.join(random.choices(string.ascii_letters + string.digits, k=7))
@@ -145,7 +145,7 @@ async def get_token(bot, userid, link):
     return short_link
 
 # -------------------------- GET VERIFICATION STATUS -------------------------- #
-# User की verification status को cache से या DB से लाता है
+# Retrieves a user's verification status from cache or database.
 async def get_verify_status(userid):
     status = temp.VERIFIED.get(userid)
     if not status:
@@ -154,7 +154,7 @@ async def get_verify_status(userid):
     return status
 
 # -------------------------- UPDATE VERIFICATION STATUS -------------------------- #
-# User के verification expiry को update करता है
+# Updates a user's verification expiry date and time.
 async def update_verify_status(userid, date_temp, time_temp):
     status = await get_verify_status(userid)
     status["date"] = date_temp
@@ -163,7 +163,7 @@ async def update_verify_status(userid, date_temp, time_temp):
     await db.update_verification(userid, date_temp, time_temp)
 
 # -------------------------- VERIFY USER -------------------------- #
-# User को verify करता है और उसकी expiry date सेट करता है
+# Marks the user as verified and sets their expiry date.
 async def verify_user(bot, userid, token):
     user = await bot.get_users(int(userid))
     temp.TOKENS[user.id] = {token: True}
@@ -174,7 +174,7 @@ async def verify_user(bot, userid, token):
     await update_verify_status(user.id, date_str, time_str)
 
 # -------------------------- CHECK USER VERIFICATION -------------------------- #
-# यह चेक करता है कि user का verification अभी भी valid है या expire हो चुका है
+# Checks whether the user's verification is still valid or has expired.
 async def check_verification(bot, userid):
     user = await bot.get_users(int(userid))
     tz = pytz.timezone("Asia/Kolkata")
