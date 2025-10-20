@@ -1,5 +1,5 @@
 services:
-  - name: AV-FILE-TO-LINK-PRO
+  - name: FILE-TO-LINK-PRO
     type: web
     env: python
     buildCommand: "pip install -r requirements.txt"
