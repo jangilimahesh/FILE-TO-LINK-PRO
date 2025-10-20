@@ -13,9 +13,9 @@
     "media",
     "bot"
   ],
-  "repository": "https://github.com/jangilimahesh/FILE-TO-LINK-PRO.git",
+  "repository": "https://github.com/jangilimahesh/FILE-TO-LINK-PRO",
   "success_url": "/",
-  "logo": "https://i.ibb.co/v1YTMm3/icon.png",
+  "logo": "#",
   "env": {
     "ENV": {
       "description": "Set this to True if you don't want the bot to crash",
